@@ -182,7 +182,7 @@ class FR_Metric(nn.Module):
             weight_map = torch.load(weight_map_path).to(device)
 
         else:
-            print('Generating weight map')
+            print('Generating WS_PSNR weight map (DO NOT use multi-GPUs when generation)')
             weight_map = self.WS_PSNR_WM(X.shape[2], X.shape[3])
 
             if not os.path.exists('./weight_map'):
@@ -240,7 +240,7 @@ class FR_Metric(nn.Module):
             weight_map = torch.load(weight_map_path).to(device)
 
         else:
-            print('Generating weight map')
+            print('Generating CPP_PSNR weight map')
             weight_map = self.CPP_PSNR_WM(X.shape[2], X.shape[3])
 
             if not os.path.exists('./weight_map'):
@@ -285,7 +285,7 @@ class FR_Metric(nn.Module):
             weight_map = torch.load(weight_map_path).to(device)
 
         else:
-            print('Generating coordinate')
+            print('Generating coordinate for S_PSNR')
             coords = torch.from_numpy(np.loadtxt('sphere_655362.txt'))
             weight_map = self.S_PSNR_WM(coords, X.shape[2:])
 
@@ -333,7 +333,7 @@ class FR_Metric(nn.Module):
             coords = torch.load(coord_name_path)
 
         else:
-            print('Generating patch coordinate')
+            print('Generating patch coordinate for S_SSIM')
             coords = genSamplingPattern(H, W, 11, 11, stride).long()
 
             if not os.path.exists('./weight_map'):
